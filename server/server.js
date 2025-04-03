@@ -4,6 +4,8 @@ import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 
+const key = process.env.key;
+
 const data = {
   'beemdkroon': {
     id: 'beemdkroon',
@@ -25,7 +27,29 @@ const data = {
       height: 600,
     }
   }
-}
+};
+
+let pexelsData;
+
+const fetchPexels = async () => {
+  try {
+    const url = "https://api.pexels.com/v1/search?query=people";
+
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': key
+      }
+    });
+
+    pexelsData = await response.json();
+    console.log('pexelDataCollected');
+    return pexelsData;
+  } catch (error) {
+    console.error("Error fetching pexels:", error);
+    return [];
+  }
+};
+
 
 const engine = new Liquid({
   extname: '.liquid',
@@ -39,6 +63,7 @@ app
   .listen(3000, () => console.log('Server available on http://localhost:3000'));
 
 app.get('/', async (req, res) => {
+  fetchPexels();
   return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', items: Object.values(data) }));
 });
 
