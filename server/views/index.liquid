@@ -2,16 +2,157 @@
 
 {% block content %}
 
-<h1 class="h1">{{ title }}</h1>
-
-<ul class="grid">
-  {% for item in items %}
+  {%- comment -%}
+    <ul class="grid">
+    {% for photo in images.photos %}
     <li>
-      <a href="/plant/{{ item.id }}">
-        {% render 'server/components/card/card.liquid', item: item %}
-      </a>
+    <p>
+    {{ photo.photographer }}
+    </p>
     </li>
-  {% endfor %}
-</ul>
+    {% endfor %}
+    </ul>{%- endcomment -%}
+
+  <div class="hero-container">
+    <div class="hero">
+      <div>
+        <small>Welcome to</small>
+        <h1>Alt="<span>Match</span>"</h1>
+
+        <div>
+          <svg>
+            <line x1="0" y1="1" x2="100%" y2="1"/>
+          </svg>
+          <div class="alt-container">
+            <p>Alt=</p>
+            <p>”A wolf pack growling in the snow”</p>
+          </div>
+          <svg>
+            <line x1="0" y1="1" x2="100%" y2="1"/>
+          </svg>
+        </div>
+
+        <a href="#more-info">How does it work?</a>
+      </div>
+      <ul>
+        <li>
+          <img src="images/pexels-suju-30890409.jpg" alt="">
+        </li>
+        <li>
+          <img src="images/pexels-molnartamasphotography-29567753.jpg" alt="">
+        </li>
+        <li>
+          <img src="images/pexels-caleb-falkenhagen-216813613-30845530.jpg" alt="">
+        </li>
+        <li>
+          <img src="images/pexels-andreas-schnabl-1775843-28573531.jpg" alt="">
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="category-container">
+    <div class="category">
+      <div>
+        <small>Get started</small>
+        <div>
+          <p>/</p>
+          <p>|</p>
+          <p>\</p>
+          <p>|</p>
+        </div>
+      </div>
+      <fieldset>
+        <span>
+          <legend>Pick a category</legend>
+        </span>
+        <div>
+          <label>
+            Animals
+            <input type="radio" name="categories" checked>
+          </label>
+          <label>
+            Food
+            <input type="radio" name="categories">
+          </label>
+          <label>
+            Structures
+            <input type="radio" name="categories">
+          </label>
+          <label>
+            People
+            <input type="radio" name="categories">
+          </label>
+          <label>
+            Random
+            <input type="radio" name="categories">
+          </label>
+        </div>
+      </fieldset>
+      <ul>
+        <li>
+          <button>
+            <p>Wolfs</p>
+            <img src="images/pexels-andreas-schnabl-1775843-28573531.jpg" alt="">
+          </button>
+        </li>
+        <li>
+          <button>
+            <p>Lions</p>
+            <img src="images/pexels-pixabay-33045.jpg" alt="">
+          </button>
+        </li>
+        <li>
+          <button>
+            <p>Bears</p>
+            <img src="images/pexels-itfeelslikefilm-1083502.jpg" alt="">
+          </button>
+        </li>
+        <li>
+          <button>
+            <p>Birds</p>
+            <img src="images/pexels-philippedonn-1133957.jpg" alt="">
+          </button>
+        </li>
+        <li>
+          <button>
+            <p>Fish</p>
+            <img src="images/pexels-chevanon-1335971.jpg" alt="">
+          </button>
+        </li>
+        <li>
+          <button>
+            <p>Frogs</p>
+            <img src="images/pexels-pixabay-76957.jpg" alt="">
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mi bg">
+    <div class="more-info-container">
+      <div id="more-info" class="more-info">
+        <svg>
+          <line x1="5" y1="0" x2="5" y2="100%"/>
+        </svg>
+        <div>
+          <small>How does it work?</small>
+          <h2>What is
+            <span>Alt="<span>Match</span>
+            </span>"?</h2>
+          <div class="multi-column">
+            <p>
+              Lorem Ipsum is simply dook a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dook a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 {% endblock %}

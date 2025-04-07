@@ -1,20 +1,20 @@
 @font-face {
     font-family: neuehaas;
-    src: url(../fonts/NeueHaasDisplayRoman.woff2);
+    src: url(/fonts/NeueHaasDisplayRoman.woff2);
     font-style: normal;
     font-weight: 400;
 }
 
 @font-face {
     font-family: neuehaas;
-    src: url(../fonts/NeueHaasDisplayBold.woff2);
+    src: url(/fonts/NeueHaasDisplayBold.woff2);
     font-style: normal;
     font-weight: 600;
 }
 
 @font-face {
     font-family: rm-mono;
-    src: url(../fonts/RM-Mono.woff2);
+    src: url(/fonts/RM-Mono.woff2);
     font-style: normal;
     font-weight: 400;
 }
