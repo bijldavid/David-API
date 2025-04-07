@@ -1,0 +1,78 @@
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+/* STAR ICON */
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+@keyframes appear-1 {
+    0% {
+      visibility: visible;
+    }
+    24% {
+      visibility: visible;
+    }
+    25% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: hidden;
+    }
+  }
+  
+  @keyframes appear-2 {
+    0% {
+      visibility: hidden;
+    }
+    24% {
+      visibility: hidden;
+    }
+    25% {
+      visibility: visible;
+    }
+    49% {
+      visibility: visible;
+    }
+    50% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: hidden;
+    }
+  }
+  
+  @keyframes appear-3 {
+    0% {
+      visibility: hidden;
+    }
+    49% {
+      visibility: hidden;
+    }
+    50% {
+      visibility: visible;
+    }
+    74% {
+      visibility: visible;
+    }
+    75% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: hidden;
+    }
+  }
+  
+  @keyframes appear-4 {
+    0% {
+      visibility: hidden;
+    }
+    74% {
+      visibility: hidden;
+    }
+    75% {
+      visibility: visible;
+    }
+    99% {
+      visibility: visible;
+    }
+    100% {
+      visibility: hidden;
+    }
+  }

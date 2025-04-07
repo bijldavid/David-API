@@ -1,0 +1,99 @@
+:root {
+    --primary-bg-color: #1F1F1C;
+    --secondary-bg-color: #2C2C29;
+
+    --primary-accent-color: #3b3b3b;
+
+    /* --primary-accent-color: #EAB5E8; */
+    --secondary-accent-color: color(display-p3 1.000000 0.866667 0.000000 / 1.000000);
+
+}
+
+/* -=-=-=-=-=-=-=-=-=-=- */
+/* CSS RESET */
+/* -=-=-=-=-=-=-=-=-=-=- */
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    interpolate-size: allow-keywords;
+}
+
+html {
+    hanging-punctuation: first last;
+}
+
+body {
+    background: var(--primary-bg-color);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+small {
+    font-family: rm-mono;
+    text-transform: uppercase;
+    color: var(--primary-accent-color);
+}
+
+img,
+picture,
+svg,
+video {
+    display: block;
+    width: 100%;
+}
+
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+
+p {
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :has(:target) {
+        scroll-behavior: smooth;
+    }
+}
+
+small,
+.alt-container p {
+    letter-spacing: 2.5px;
+    display: block;
+    color: var(--secondary-accent-color);
+    font-size: 1.3cqw;
+}
+
+/* -=-=-=-=-=-=-=-=-=-=- */
+/* UTILITY CLASSES */
+/* -=-=-=-=-=-=-=-=-=-=- */
+
+.hr {
+    height: 1px;
+    width: 100%;
+    background-color: white;
+    opacity: .2;
+}
+
+.bg {
+    min-width: 100%;
+}
+
+.visually-hidden {
+
+}
