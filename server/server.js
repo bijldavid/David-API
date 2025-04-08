@@ -9,26 +9,36 @@ const key = process.env.key;
 
 let pexelsData;
 
-const fetchPexels = async () => {
+const fetchPexels = async (query = "animals", pages = 5) => {
   try {
-    const url = "https://api.pexels.com/v1/search?query=people";
+    let allPhotos = [];
 
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': key
-      }
-    });
+    // Fetch multiple pages
+    for (let page = 1; page <= pages; page++) {
+      const url = `https://api.pexels.com/v1/search?query=${query}&per_page=80&page=${page}`;
 
-    // Zet de data uit de API om in .json 
-    pexelsData = await response.json();
-    console.log(pexelsData);
-    console.log('pexelDataCollected');
-    return pexelsData;
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': key
+        }
+      });
+
+      const data = await response.json();
+      
+      // Add photos from this page to the allPhotos array
+      allPhotos = [...allPhotos, ...data.photos];
+    }
+
+    return { photos: allPhotos };
   } catch (error) {
-    console.error("Error fetching pexels:", error);
-    return [];
+    console.error("Error fetching from Pexels:", error);
+    return { photos: [] };
   }
 };
+
+
+
+
 
 
 const engine = new Liquid({
@@ -43,11 +53,25 @@ app
   .listen(3000, () => console.log('Server available on http://localhost:3000'));
 
 app.get('/', async (req, res) => {
-  const pexelData = await fetchPexels();
-  console.log(pexelsData)
+  const query = req.query.query || 'animals'; // Default to 'animals' if no query is provided
+  const filterKeyword = req.query.filter || 'wolf'; // Default to 'wolf' if no filter is provided
 
-  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', images: pexelData }));
+  const pexelData = await fetchPexels(query);
+  // const pexelData = await fetchPexels('animals', 5);
+
+  // Filter images by alt tag if a filter keyword is set
+  const filteredImages = pexelData.photos.filter(photo => {
+    const alt = (photo.alt || '').toLowerCase();
+    return alt.includes(filterKeyword.toLowerCase());
+  });
+
+  return res.send(renderTemplate('server/views/index.liquid', {
+    title: 'Home',
+    images: filteredImages // Pass filtered images to the template
+  }));
 });
+
+
 
 
 

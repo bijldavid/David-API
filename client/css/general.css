@@ -97,3 +97,27 @@ small,
 .visually-hidden {
 
 }
+
+.category:has(.animals-input input:checked) .animals-images {
+    display: grid !important;
+}
+
+.category:has(.food-input input:checked) .food-images {
+    display: grid !important;
+}
+
+.category:has(.structures-input input:checked) .structures-images {
+    display: grid !important;
+}
+
+.category:has(.people-input input:checked) .people-images {
+    display: grid !important;
+}
+
+.category:has(.random-input input:checked) .random-images {
+    display: grid !important;
+}
+
+.blabla {
+
+}

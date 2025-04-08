@@ -273,7 +273,7 @@
 /* BUTTONS */
 
 .category ul {
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2.5cqw;
     margin-inline: 4cqw;

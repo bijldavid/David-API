@@ -2,17 +2,6 @@
 
 {% block content %}
 
-  {%- comment -%}
-    <ul class="grid">
-    {% for photo in images.photos %}
-    <li>
-    <p>
-    {{ photo.photographer }}
-    </p>
-    </li>
-    {% endfor %}
-    </ul>{%- endcomment -%}
-
   <div class="hero-container">
     <div class="hero">
       <div>
@@ -69,66 +58,69 @@
           <legend>Pick a category</legend>
         </span>
         <div>
-          <label>
+          <label class="animals-input">
             Animals
             <input type="radio" name="categories" checked>
           </label>
-          <label>
+          <label class="food-input">
             Food
             <input type="radio" name="categories">
           </label>
-          <label>
+          <label class="structures-input">
             Structures
             <input type="radio" name="categories">
           </label>
-          <label>
+          <label class="people-input">
             People
             <input type="radio" name="categories">
           </label>
-          <label>
+          <label class="random-input">
             Random
             <input type="radio" name="categories">
           </label>
         </div>
       </fieldset>
-      <ul>
+      <!-- Previous HTML and head section -->
+
+      <ul class="animals-images">
         <li>
           <button>
-            <p>Wolfs</p>
-            <img src="images/pexels-andreas-schnabl-1775843-28573531.jpg" alt="">
+            <p>Wolves</p>
+            <img src="#" alt="">
           </button>
         </li>
         <li>
           <button>
             <p>Lions</p>
-            <img src="images/pexels-pixabay-33045.jpg" alt="">
+            <img src="#" alt="">
           </button>
         </li>
         <li>
           <button>
             <p>Bears</p>
-            <img src="images/pexels-itfeelslikefilm-1083502.jpg" alt="">
+            <img src="#" alt="">
           </button>
         </li>
         <li>
           <button>
             <p>Birds</p>
-            <img src="images/pexels-philippedonn-1133957.jpg" alt="">
+            <img src="#" alt="">
           </button>
         </li>
         <li>
           <button>
             <p>Fish</p>
-            <img src="images/pexels-chevanon-1335971.jpg" alt="">
+            <img src="#" alt="">
           </button>
         </li>
         <li>
           <button>
             <p>Frogs</p>
-            <img src="images/pexels-pixabay-76957.jpg" alt="">
+            <img src="#" alt="">
           </button>
         </li>
       </ul>
+
     </div>
   </div>
 
@@ -153,6 +145,13 @@
     </div>
   </div>
 
+  <ul>
+    {% for image in images %}
+      <li>
+        <img src="{{ image.src.medium }}" alt="{{ image.alt }}">
+      </li>
+    {% endfor %}
+  </ul>
 
 
 {% endblock %}
