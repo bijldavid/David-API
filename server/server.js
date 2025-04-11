@@ -4,36 +4,54 @@ import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 
-// API key gekoppeld vanuit .env
-const key = process.env.key;
+// Environment variables
+const {
+  UNSPLASH_ACCESS_KEY,
+  NODE_ENV = 'production',
+  PORT = 3000
+} = process.env;
 
-let pexelsData;
+// Initialize Liquid template engine
+const engine = new Liquid({
+  extname: '.liquid',
+});
 
-const fetchPexels = async (query = "animals", pages = 5) => {
-  try {
-    let allPhotos = [];
+// Helper function to render templates
+const renderTemplate = (template, data) => {
+  const templateData = {
+    NODE_ENV,
+    ...data
+  };
+  return engine.renderFileSync(template, templateData);
+};
 
-    // Fetch multiple pages
-    for (let page = 1; page <= pages; page++) {
-      const url = `https://api.pexels.com/v1/search?query=${query}&per_page=80&page=${page}`;
+/**
+ * Fetch photos from a specific Unsplash collection
+ * @param {string} collectionId - ID of the Unsplash collection
+ * @param {number} perPage - Number of photos per page
+ * @returns {Promise<{photos: Array}>} - Photos array
+ */
+const fetchCollectionImages = async (collectionId, pages = 3) => {
+  let allPhotos = [];
 
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': key
-        }
-      });
+  for (let page = 1; page <= pages; page++) {
+    const url = `https://api.unsplash.com/collections/${collectionId}/photos?per_page=30&page=${page}`;
 
-      const data = await response.json();
-      
-      // Add photos from this page to the allPhotos array
-      allPhotos = [...allPhotos, ...data.photos];
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`
+      }
+    });
+
+    const pageData = await response.json();
+
+    // Only push if it's actually an array
+    if (Array.isArray(pageData)) {
+      allPhotos = [...allPhotos, ...pageData];
     }
-
-    return { photos: allPhotos };
-  } catch (error) {
-    console.error("Error fetching from Pexels:", error);
-    return { photos: [] };
   }
+
+  return allPhotos;
 };
 
 
@@ -41,33 +59,93 @@ const fetchPexels = async (query = "animals", pages = 5) => {
 
 
 
-const engine = new Liquid({
-  extname: '.liquid',
-});
 
+// Initialize application
 const app = new App();
 
-app
-  .use(logger())
-  .use('/', sirv(process.env.NODE_ENV === 'development' ? 'client' : 'dist'))
-  .listen(3000, () => console.log('Server available on http://localhost:3000'));
+// Configure middleware
+app.use(logger());
+app.use('/', sirv(NODE_ENV === 'development' ? 'client' : 'dist'));
+
+
+
+
+
+// Add this function before your route definition
+function findImagesByKeywords(images, keywordsMap) {
+  const foundCategories = {};
+  const resultImages = [];
+
+  images.forEach(image => {
+    if (!image.alt_description) return;
+
+    const description = image.alt_description.toLowerCase();
+
+    for (const [category, keywords] of Object.entries(keywordsMap)) {
+      if (foundCategories[category]) continue;
+
+      if (keywords.some(keyword => description.includes(keyword))) {
+        foundCategories[category] = true;
+        resultImages.push({
+          ...image,
+          category: category,
+          displayName: category.charAt(0).toUpperCase() + category.slice(1)
+        });
+        break;
+      }
+    }
+  });
+
+  console.log(`Found ${resultImages.length} images for categories: ${Object.keys(foundCategories).join(', ')}`);
+  return resultImages;
+}
+
+
+
+
 
 app.get('/', async (req, res) => {
-  const query = req.query.query || 'animals'; // Default to 'animals' if no query is provided
-  const filterKeyword = req.query.filter || 'wolf'; // Default to 'wolf' if no filter is provided
+  const collectionId = '6vTF-IB0SOQ';
+  // Single API fetch
+  const allImages = await fetchCollectionImages(collectionId, 3);
 
-  const pexelData = await fetchPexels(query);
-  // const pexelData = await fetchPexels('animals', 5);
+  console.log(`Fetched ${allImages.length} images from Unsplash`);
 
-  // Filter images by alt tag if a filter keyword is set
-  const filteredImages = pexelData.photos.filter(photo => {
-    const alt = (photo.alt || '').toLowerCase();
-    return alt.includes(filterKeyword.toLowerCase());
-  });
+  // Define all your keyword sets
+  const animalKeywords = {
+    'wolves': ['wolf', 'wolves', 'canine', 'canid', 'lupus'],
+    'lions': ['lion', 'lions', 'lioness', 'big cat', 'panthera leo', 'feline'],
+    'bears': ['bear', 'bears', 'grizzly', 'polar bear', 'ursus', 'cub', 'teddy'],
+    'frogs': ['frog', 'frogs', 'toad', 'toads', 'amphibian', 'tadpole'],
+    'fish': ['fish', 'fishes', 'trout', 'salmon', 'aquatic', 'underwater', 'marine'],
+    'birds': ['bird', 'birds', 'avian', 'feathered', 'fowl', 'owl', 'eagle', 'hawk', 'parrot', 'duck']
+  };
+
+  const foodKeywords = {
+    'burgers': ['burger', 'beef', 'patty', 'fastfood', 'burgers'],
+    'pizzas': ['italian', 'pizza', 'pizzas', 'margherita', 'pepperoni'],
+    'pastas': ['pasta', 'pastas', 'bolognese', 'carbonara', 'salad'],
+    'bread': ['bread', 'slices', 'loaf', 'baked', 'baguette', 'dough'],
+    'meat': ['meat', 'raw', 'steak', 'grilled', 'sliced', 'cut'],
+    'fries': ['fries', 'potato', 'french']
+  };
+
+  // Extract both sets from the same image collection
+  // Run these filters separately
+  const animalImages = findImagesByKeywords(
+    allImages.filter(img => img.alt_description), // Only use images with descriptions
+    animalKeywords
+  );
+
+  const foodImages = findImagesByKeywords(
+    allImages.filter(img => img.alt_description), // Only use images with descriptions
+    foodKeywords
+  );
 
   return res.send(renderTemplate('server/views/index.liquid', {
     title: 'Home',
-    images: filteredImages // Pass filtered images to the template
+    animalImages: animalImages,
+    foodImages: foodImages
   }));
 });
 
@@ -81,24 +159,23 @@ app.get('/', async (req, res) => {
 
 
 
-// voor detail pagina
+
+
 app.get('/plant/:id/', async (req, res) => {
   const id = req.params.id;
-  const item = data[id];
+  const item = data[id]; // Note: 'data' variable is undefined in your original code
+
   if (!item) {
     return res.status(404).send('Not found');
   }
+
   return res.send(renderTemplate('server/views/detail.liquid', {
     title: `Detail page for ${id}`,
     item: item
   }));
 });
 
-const renderTemplate = (template, data) => {
-  const templateData = {
-    NODE_ENV: process.env.NODE_ENV || 'production',
-    ...data
-  };
-
-  return engine.renderFileSync(template, templateData);
-};
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server available on http://localhost:${PORT}`);
+});

@@ -83,43 +83,29 @@
       <!-- Previous HTML and head section -->
 
       <ul class="animals-images">
-        <li>
-          <button>
-            <p>Wolves</p>
-            <img src="#" alt="">
-          </button>
-        </li>
-        <li>
-          <button>
-            <p>Lions</p>
-            <img src="#" alt="">
-          </button>
-        </li>
-        <li>
-          <button>
-            <p>Bears</p>
-            <img src="#" alt="">
-          </button>
-        </li>
-        <li>
-          <button>
-            <p>Birds</p>
-            <img src="#" alt="">
-          </button>
-        </li>
-        <li>
-          <button>
-            <p>Fish</p>
-            <img src="#" alt="">
-          </button>
-        </li>
-        <li>
-          <button>
-            <p>Frogs</p>
-            <img src="#" alt="">
-          </button>
-        </li>
+        {% for image in animalImages %}
+          <li>
+            <button>
+              <p>{{ image.displayName | capitalize }}
+              </p>
+              <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">
+            </button>
+          </li>
+        {% endfor %}
       </ul>
+
+      <ul class="food-images">
+        {% for image in foodImages %}
+          <li>
+            <button>
+              <p>{{ image.displayName | capitalize }}
+              </p>
+              <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+
 
     </div>
   </div>
@@ -145,13 +131,6 @@
     </div>
   </div>
 
-  <ul>
-    {% for image in images %}
-      <li>
-        <img src="{{ image.src.medium }}" alt="{{ image.alt }}">
-      </li>
-    {% endfor %}
-  </ul>
 
 
 {% endblock %}
