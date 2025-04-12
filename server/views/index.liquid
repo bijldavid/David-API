@@ -1,5 +1,14 @@
 {% layout "server/layouts/base.liquid" %}
 
+{% block head %}
+  <title>Home</title>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/css/homepage.css">
+{% endblock %}
+
+
 {% block content %}
 
   <div class="hero-container">
@@ -85,11 +94,11 @@
       <ul class="animals-images">
         {% for image in animalImages %}
           <li>
-            <button>
+            <a href="/game/animals">
               <p>{{ image.displayName | capitalize }}
               </p>
               <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">
-            </button>
+            </a>
           </li>
         {% endfor %}
       </ul>
@@ -97,11 +106,11 @@
       <ul class="food-images">
         {% for image in foodImages %}
           <li>
-            <button>
+            <a href="/game/food">
               <p>{{ image.displayName | capitalize }}
               </p>
               <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">
-            </button>
+            </a>
           </li>
         {% endfor %}
       </ul>

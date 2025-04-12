@@ -157,23 +157,58 @@ app.get('/', async (req, res) => {
 
 
 
+function getImagesByCategory(category, allImages) {
+  return allImages.filter(image =>
+    image.category === category ||
+    (image.alt_description && image.alt_description.toLowerCase().includes(category))
+  );
+}
 
 
+app.get('/game/:category', async (req, res) => {
+  const category = req.params.category;
 
+  // Fetch all images first
+  const collectionId = '6vTF-IB0SOQ';
+  const allImages = await fetchCollectionImages(collectionId, 3);
 
-app.get('/plant/:id/', async (req, res) => {
-  const id = req.params.id;
-  const item = data[id]; // Note: 'data' variable is undefined in your original code
+  // Get images for this specific category
+  let categoryImages;
 
-  if (!item) {
-    return res.status(404).send('Not found');
+  if (category === 'animals') {
+    const animalKeywords = {
+      'wolves': ['wolf', 'wolves', 'canine', 'canid', 'lupus'],
+      'lions': ['lion', 'lions', 'lioness', 'big cat', 'panthera leo', 'feline'],
+      'bears': ['bear', 'bears', 'grizzly', 'polar bear', 'ursus', 'cub', 'teddy'],
+      'frogs': ['frog', 'frogs', 'toad', 'toads', 'amphibian', 'tadpole'],
+      'fish': ['fish', 'fishes', 'trout', 'salmon', 'aquatic', 'underwater', 'marine'],
+      'birds': ['bird', 'birds', 'avian', 'feathered', 'fowl', 'owl', 'eagle', 'hawk', 'parrot', 'duck']
+    };
+    categoryImages = findImagesByKeywords(allImages, animalKeywords);
+  } else if (category === 'food') {
+    const foodKeywords = {
+      'burgers': ['burger', 'beef', 'patty', 'fastfood', 'burgers'],
+      'pizzas': ['italian', 'pizza', 'pizzas', 'margherita', 'pepperoni'],
+      'pastas': ['pasta', 'pastas', 'bolognese', 'carbonara', 'salad'],
+      'bread': ['bread', 'slices', 'loaf', 'baked', 'baguette', 'dough'],
+      'meat': ['meat', 'raw', 'steak', 'grilled', 'sliced', 'cut'],
+      'fries': ['fries', 'potato', 'french']
+    };
+    categoryImages = findImagesByKeywords(allImages, foodKeywords);
+  } else {
+    categoryImages = [];
   }
 
-  return res.send(renderTemplate('server/views/detail.liquid', {
-    title: `Detail page for ${id}`,
-    item: item
+  // Use your render function instead of res.render
+  return res.send(renderTemplate('server/views/game.liquid', {
+    title: `${category.charAt(0).toUpperCase() + category.slice(1)} Game`,
+    category: category,
+    images: categoryImages,
+    previousPage: req.headers.referer || '/'
   }));
 });
+
+
 
 // Start server
 app.listen(PORT, () => {

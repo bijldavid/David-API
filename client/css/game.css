@@ -1,0 +1,154 @@
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+/* GAME PAGE */
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+.game-container {
+    max-width: 1200px;
+    margin-inline: auto;
+    container-type: inline-size;
+}
+
+.game {
+    margin: 10rem 5cqw;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 3cqw;
+}
+
+.game>div {
+    display: flex;
+    flex-direction: column;
+    gap: 1cqw;
+}
+
+
+.game>div a {
+    position: relative;
+    font-family: neuehaas;
+    font-weight: 400;
+    font-size: 2cqw;
+    color: var(--white);
+    margin-block-end: 2cqw;
+    padding-inline-start: 3cqw;
+    width: max-content;
+}
+
+.game>div a::before {
+    position: absolute;
+    content: '';
+    height: 2cqw;
+    aspect-ratio: 1;
+    background-image: url(../images/arrow-back.svg);
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center;
+    left: 0;
+    top: 50%;
+    translate: 0 -50%;
+}
+
+.game>div h1 {
+    font-family: neuehaas;
+    font-weight: 600;
+    font-size: 5cqw;
+    color: var(--white);
+}
+
+.game>div h1 span {
+    color: var(--secondary-accent-color);
+}
+
+
+/* ALT */
+
+.game>div div svg {
+    stroke: var(--primary-accent-color);
+    stroke-width: 100%;
+    stroke-dasharray: 27 40;
+    height: 2.5px;
+    width: 100%;
+}
+
+.game>div div .alt-container {
+    display: flex;
+    gap: 1.5cqw;
+}
+
+.game>div div .alt-container p {
+    font-family: rm-mono;
+    font-size: 2.3cqw;
+    color: var(--white);
+    padding-block: 3cqw;
+}
+
+.game>div div .alt-container p:nth-of-type(1) {
+    white-space: nowrap;
+}
+
+
+/* IMAGES */
+
+.game section {
+    display: flex;
+    flex-direction: column;
+    gap: 3cqw;
+}
+
+/* TITEL */
+
+.game section h2 {
+    font-family: neuehaas;
+    font-weight: 400;
+    font-size: 2cqw;
+    color: var(--white);
+}
+
+/* ITEMS */
+
+.game section ul {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5cqw;
+    padding: 2cqw;
+    outline: 2px solid var(--primary-accent-color);
+    border-radius: 2cqw;
+}
+
+.game section ul li {
+    border-radius: 2cqw;
+    overflow: hidden;
+}
+
+.game section ul li:hover {
+    outline: 3px solid var(--secondary-accent-color);
+}
+
+.game section ul li img {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* FOOTER */
+
+.game section footer {
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1cqw;
+    border-radius: 100vw;
+}
+
+
+.game section footer h3 {
+    font-family: neuehaas;
+    font-weight: 600;
+    font-size: 1.25cqw;
+    color: var(--primarty-bg-color);
+}
+
+.game section footer h3 span {
+    text-align: center;
+    font-size: 2.25cqw;
+    color: var(--primarty-bg-color);
+}

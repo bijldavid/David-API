@@ -287,7 +287,7 @@
     overflow: hidden;
 }
 
-.category ul li button {
+.category ul li a {
     position: relative;
     width: 100%;
     height: 100%;
@@ -295,7 +295,7 @@
     background-color: var(--primary-bg-color);
 }
 
-.category ul li button::before {
+.category ul li a::before {
     z-index: 1;
     content: '';
     position: absolute;
@@ -311,11 +311,11 @@
     transition: opacity .3s ease;
 }
 
-.category ul li button:hover::before {
+.category ul li a:hover::before {
     opacity: 1;
 }
 
-.category ul li button::after {
+.category ul li a::after {
     z-index: 2;
     content: '';
     position: absolute;
@@ -329,19 +329,20 @@
     transition: opacity .3s ease;
 }
 
-.category ul li button:hover::after {
+.category ul li a:hover::after {
     opacity: 1;
 }
 
-.category ul li button:focus {
+.category ul li a:focus {
     border-radius: 2cqw;
 }
 
-.category ul li button p {
+.category ul li a p {
     z-index: 10;
     position: absolute;
     bottom: 0;
     left: 2cqw;
+    font-family: neuehaas;
     font-weight: 600;
     font-size: 1.33cqw;
     color: white;
@@ -349,18 +350,18 @@
     transition: bottom .3s ease, opacity .3s ease;
 }
 
-.category ul li button:hover p {
+.category ul li a:hover p {
     bottom: 1.5cqw;
     opacity: 1;
 }
 
-.category ul li button img {
+.category ul li a img {
     height: 100%;
     object-fit: cover;
     transition: filter .3s ease;
 }
 
-.category ul li button:hover img {
+.category ul li a:hover img {
     filter: blur(1px);
 }
 

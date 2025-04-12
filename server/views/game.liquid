@@ -1,0 +1,65 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block head %}
+  <title>Game</title>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/css/game.css">
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="game-container">
+    <div class="game">
+      <div>
+        <a href="{{ previousPage }}">Go back</a>
+        <small>Your category</small>
+        <h1>Wolves</h1>
+
+        <div>
+          <svg>
+            <line x1="0" y1="1" x2="100%" y2="1"/>
+          </svg>
+          <div class="alt-container">
+            <p>Alt=</p>
+            <p>”A wolf pack growling in the snow”</p>
+          </div>
+          <svg>
+            <line x1="0" y1="1" x2="100%" y2="1"/>
+          </svg>
+        </div>
+
+      </div>
+      <section>
+        <h2>Match the corresponding image!</h2>
+        <ul>
+          <li>
+            <img src="/client/images/pexels-suju-30890409.jpg" alt="">
+          </li>
+          <li>
+            <img src="/client/images/pexels-molnartamasphotography-29567753.jpg" alt="">
+          </li>
+          <li>
+            <img src="/client/images/pexels-caleb-falkenhagen-216813613-30845530.jpg" alt="">
+          </li>
+          <li>
+            <img src="/client/images/pexels-andreas-schnabl-1775843-28573531.jpg" alt="">
+          </li>
+        </ul>
+
+        <footer>
+          <h3>
+            <span class="break">3</span>Streak</h3>
+          <h3>
+            <span class="break">5</span>Correct</h3>
+          <h3>
+            <span class="break">2</span>Wrong</h3>
+        </footer>
+      </section>
+    </div>
+  </div>
+
+
+{% endblock %}}}

@@ -7,6 +7,8 @@
     /* --primary-accent-color: #EAB5E8; */
     --secondary-accent-color: color(display-p3 1.000000 0.866667 0.000000 / 1.000000);
 
+    --white: white;
+
 }
 
 /* -=-=-=-=-=-=-=-=-=-=- */
@@ -86,8 +88,12 @@ small,
 .hr {
     height: 1px;
     width: 100%;
-    background-color: white;
+    background-color: var(--white);
     opacity: .2;
+}
+
+.break {
+    display: block;
 }
 
 .bg {
@@ -116,8 +122,4 @@ small,
 
 .category:has(.random-input input:checked) .random-images {
     display: grid !important;
-}
-
-.blabla {
-
 }
