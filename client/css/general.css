@@ -4,8 +4,8 @@
 
     --primary-accent-color: #3b3b3b;
 
-    /* --primary-accent-color: #EAB5E8; */
-    --secondary-accent-color: color(display-p3 1.000000 0.866667 0.000000 / 1.000000);
+    --secondary-accent-color: #ffe95a;
+    /* --secondary-accent-color: color(display-p3 1.000000 0.866667 0.000000 / 1.000000); */
 
     --white: white;
 
@@ -60,12 +60,12 @@ h3 {
     text-wrap: balance;
 }
 
-p {
+/* p {
     hyphens: auto;
     overflow-wrap: break-word;
     word-break: break-word;
     text-wrap: pretty;
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
     :has(:target) {
@@ -100,9 +100,7 @@ small,
     min-width: 100%;
 }
 
-.visually-hidden {
-
-}
+.visually-hidden {}
 
 .category:has(.animals-input input:checked) .animals-images {
     display: grid !important;

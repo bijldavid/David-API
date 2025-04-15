@@ -121,7 +121,7 @@
 }
 
 .game section ul li:hover {
-    outline: 3px solid var(--secondary-accent-color);
+    outline: 2px solid var(--secondary-accent-color);
 }
 
 .game section ul li img {

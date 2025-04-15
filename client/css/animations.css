@@ -1,78 +1,492 @@
+:root {
+  --card-offset: .75cqw;
+}
+
 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 /* STAR ANIMATION */
 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 @keyframes appear-1 {
-    0% {
-      visibility: visible;
-    }
-    24% {
-      visibility: visible;
-    }
-    25% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: hidden;
-    }
+  0% {
+    visibility: visible;
   }
-  
-  @keyframes appear-2 {
-    0% {
-      visibility: hidden;
-    }
-    24% {
-      visibility: hidden;
-    }
-    25% {
-      visibility: visible;
-    }
-    49% {
-      visibility: visible;
-    }
-    50% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: hidden;
-    }
+
+  24% {
+    visibility: visible;
   }
-  
-  @keyframes appear-3 {
-    0% {
-      visibility: hidden;
-    }
-    49% {
-      visibility: hidden;
-    }
-    50% {
-      visibility: visible;
-    }
-    74% {
-      visibility: visible;
-    }
-    75% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: hidden;
-    }
+
+  25% {
+    visibility: hidden;
   }
-  
-  @keyframes appear-4 {
-    0% {
-      visibility: hidden;
-    }
-    74% {
-      visibility: hidden;
-    }
-    75% {
-      visibility: visible;
-    }
-    99% {
-      visibility: visible;
-    }
-    100% {
-      visibility: hidden;
-    }
+
+  100% {
+    visibility: hidden;
   }
+}
+
+@keyframes appear-2 {
+  0% {
+    visibility: hidden;
+  }
+
+  24% {
+    visibility: hidden;
+  }
+
+  25% {
+    visibility: visible;
+  }
+
+  49% {
+    visibility: visible;
+  }
+
+  50% {
+    visibility: hidden;
+  }
+
+  100% {
+    visibility: hidden;
+  }
+}
+
+@keyframes appear-3 {
+  0% {
+    visibility: hidden;
+  }
+
+  49% {
+    visibility: hidden;
+  }
+
+  50% {
+    visibility: visible;
+  }
+
+  74% {
+    visibility: visible;
+  }
+
+  75% {
+    visibility: hidden;
+  }
+
+  100% {
+    visibility: hidden;
+  }
+}
+
+@keyframes appear-4 {
+  0% {
+    visibility: hidden;
+  }
+
+  74% {
+    visibility: hidden;
+  }
+
+  75% {
+    visibility: visible;
+  }
+
+  99% {
+    visibility: visible;
+  }
+
+  100% {
+    visibility: hidden;
+  }
+}
+
+
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+/* CARD ANIMATION */
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+@keyframes shuffle-card-1 {
+
+  0%,
+  17% {
+    transform: scale(0.1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 0;
+    z-index: 1;
+  }
+
+  20%,
+  37% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 3)) translateY(calc(var(--card-offset) * 3));
+    opacity: 1;
+    z-index: 2;
+  }
+
+  40%,
+  57% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 2)) translateY(calc(var(--card-offset) * 2));
+    opacity: 1;
+    z-index: 3;
+  }
+
+  60%,
+  77% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 1)) translateY(calc(var(--card-offset) * 1));
+    opacity: 1;
+    z-index: 4;
+  }
+
+  80%,
+  97% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 1;
+    z-index: 5;
+  }
+
+  100% {
+    transform: scale(0.1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 0;
+    z-index: 1;
+  }
+}
+
+@keyframes shuffle-card-2 {
+
+  0%,
+  17% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 1;
+    z-index: 5;
+  }
+
+  20%,
+  37% {
+    transform: scale(0.1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 0;
+    z-index: 1;
+  }
+
+  40%,
+  57% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 3)) translateY(calc(var(--card-offset) * 3));
+    opacity: 1;
+    z-index: 2;
+  }
+
+  60%,
+  77% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 2)) translateY(calc(var(--card-offset) * 2));
+    opacity: 1;
+    z-index: 3;
+  }
+
+  80%,
+  97% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 1)) translateY(calc(var(--card-offset) * 1));
+    opacity: 1;
+    z-index: 4;
+  }
+
+  100% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+@keyframes shuffle-card-3 {
+
+  0%,
+  17% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 1)) translateY(calc(var(--card-offset) * 1));
+    opacity: 1;
+    z-index: 4;
+  }
+
+  20%,
+  37% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 1;
+    z-index: 5;
+  }
+
+  40%,
+  57% {
+    transform: scale(0.1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 0;
+    z-index: 1;
+  }
+
+  60%,
+  77% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 3)) translateY(calc(var(--card-offset) * 3));
+    opacity: 1;
+    z-index: 2;
+  }
+
+  80%,
+  97% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 2)) translateY(calc(var(--card-offset) * 2));
+    opacity: 1;
+    z-index: 3;
+  }
+
+  100% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 1)) translateY(calc(var(--card-offset) * 1));
+    opacity: 1;
+    z-index: 4;
+  }
+}
+
+@keyframes shuffle-card-4 {
+
+  0%,
+  17% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 2)) translateY(calc(var(--card-offset) * 2));
+    opacity: 1;
+    z-index: 3;
+  }
+
+  20%,
+  37% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 1)) translateY(calc(var(--card-offset) * 1));
+    opacity: 1;
+    z-index: 4;
+  }
+
+  40%,
+  57% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 1;
+    z-index: 5;
+  }
+
+  60%,
+  77% {
+    transform: scale(0.1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 0;
+    z-index: 1;
+  }
+
+  80%,
+  97% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 3)) translateY(calc(var(--card-offset) * 3));
+    opacity: 1;
+    z-index: 2;
+  }
+
+  100% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 2)) translateY(calc(var(--card-offset) * 2));
+    opacity: 1;
+    z-index: 3;
+  }
+}
+
+@keyframes shuffle-card-5 {
+
+  0%,
+  17% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 3)) translateY(calc(var(--card-offset) * 3));
+    opacity: 1;
+    z-index: 2;
+  }
+
+  20%,
+  37% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 2)) translateY(calc(var(--card-offset) * 2));
+    opacity: 1;
+    z-index: 3;
+  }
+
+  40%,
+  57% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 1)) translateY(calc(var(--card-offset) * 1));
+    opacity: 1;
+    z-index: 4;
+  }
+
+  60%,
+  77% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 1;
+    z-index: 5;
+  }
+
+  80%,
+  97% {
+    transform: scale(0.1) translateX(calc(var(--card-offset) * 0)) translateY(calc(var(--card-offset) * 0));
+    opacity: 0;
+    z-index: 1;
+  }
+
+  100% {
+    transform: scale(1) translateX(calc(var(--card-offset) * 3)) translateY(calc(var(--card-offset) * 3));
+    opacity: 1;
+    z-index: 2;
+  }
+}
+
+
+
+
+
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+/* CARD ANIMATION PSEUDO */
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+@keyframes shuffle-card-pseudo-1 {
+
+  0%,
+  17% {
+    opacity: .8;
+  }
+
+  20%,
+  37% {
+    opacity: .8;
+  }
+
+  40%,
+  57% {
+    opacity: .6;
+  }
+
+  60%,
+  77% {
+    opacity: .3;
+  }
+
+  80%,
+  97% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes shuffle-card-pseudo-2 {
+
+  0%,
+  17% {
+    opacity: 0;
+  }
+
+  20%,
+  37% {
+    opacity: .8;
+  }
+
+  40%,
+  57% {
+    opacity: .8;
+  }
+
+  60%,
+  77% {
+    opacity: .6;
+  }
+
+  80%,
+  97% {
+    opacity: .3;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes shuffle-card-pseudo-3 {
+
+  0%,
+  17% {
+    opacity: 0;
+  }
+
+  20%,
+  37% {
+    opacity: 0;
+  }
+
+  40%,
+  57% {
+    opacity: .8;
+  }
+
+  60%,
+  77% {
+    opacity: .8;
+  }
+
+  80%,
+  97% {
+    opacity: .6;
+  }
+
+  100% {
+    opacity: .3;
+  }
+}
+
+@keyframes shuffle-card-pseudo-4 {
+
+  0%,
+  17% {
+    opacity: .3;
+  }
+
+  20%,
+  37% {
+    opacity: 0;
+  }
+
+  40%,
+  57% {
+    opacity: 0;
+  }
+
+  60%,
+  77% {
+    opacity: .8;
+  }
+
+  80%,
+  97% {
+    opacity: .8;
+  }
+
+  100% {
+    opacity: .6;
+  }
+}
+
+@keyframes shuffle-card-pseudo-5 {
+
+  0%,
+  17% {
+    opacity: .6;
+  }
+
+  20%,
+  37% {
+    opacity: .3;
+  }
+
+  40%,
+  57% {
+    opacity: 0;
+  }
+
+  60%,
+  77% {
+    opacity: 0;
+  }
+
+  80%,
+  97% {
+    opacity: .8;
+  }
+
+  100% {
+    opacity: .8;
+  }
+}

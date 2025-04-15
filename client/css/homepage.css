@@ -15,27 +15,27 @@
     gap: 3cqw;
 }
 
-.hero>div {
+.hero>div:nth-of-type(1) {
     display: flex;
     flex-direction: column;
     gap: 1cqw;
 }
 
-.hero>div h1 {
+.hero>div:nth-of-type(1) h1 {
     font-family: neuehaas;
     font-weight: 600;
     font-size: 5cqw;
     color: white;
 }
 
-.hero>div h1 span {
+.hero>div:nth-of-type(1) h1 span {
     color: var(--secondary-accent-color);
 }
 
 
 /* ALT */
 
-.hero>div div svg {
+.hero>div:nth-of-type(1) div svg {
     stroke: var(--primary-accent-color);
     stroke-width: 100%;
     stroke-dasharray: 27 40;
@@ -43,26 +43,31 @@
     width: 100%;
 }
 
-.hero>div div .alt-container {
+.hero>div:nth-of-type(1) div .alt-container {
     display: flex;
     gap: 1.5cqw;
 }
 
-.hero>div div .alt-container p {
+.hero>div:nth-of-type(1) div .alt-container p {
     font-family: rm-mono;
     font-size: 2.3cqw;
     color: white;
-    padding-block: 3cqw;
+    margin-block: 3cqw;
 }
 
-.hero>div div .alt-container p:nth-of-type(1) {
+.hero>div:nth-of-type(1) div .alt-container>p {
     white-space: nowrap;
+}
+
+.alt-container section {
+    display: none;
+    width: 100%;
 }
 
 
 /* MORE INFO */
 
-.hero>div a {
+.hero>div:nth-of-type(1) a {
     padding: 1cqw 2.5cqw;
     background-color: white;
     border-radius: 100vw;
@@ -78,26 +83,29 @@
 
 /* IMAGES */
 
-.hero ul {
-    --image-stack-offset: .75cqw;
+.hero>div:nth-of-type(2) {
+    padding: 3cqw;
+    outline: 2px solid var(--primary-accent-color);
+    border-radius: 2cqw;
+    width: 100%;
+}
 
+.hero>div:nth-of-type(2) ul {
     width: 100%;
     display: grid;
     grid-template-areas: "stack";
-    padding: 2cqw;
-    outline: 2px solid var(--primary-accent-color);
-    border-radius: 2cqw;
+    translate: calc(var(--card-offset) * -1.5) calc(var(--card-offset) * -1.5);
 }
 
-.hero ul li {
+.hero>div:nth-of-type(2) ul li {
     grid-area: stack;
     position: relative;
     border-radius: 2cqw;
     overflow: hidden;
-    margin: 0 calc(var(--image-stack-offset) * 2) calc(var(--image-stack-offset) * 2) 0;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-.hero ul li::before {
+.hero>div:nth-of-type(2) ul li::before {
     content: '';
     position: absolute;
     top: 0;
@@ -106,39 +114,57 @@
     height: 100%;
 }
 
-.hero ul li:nth-of-type(1) {
-    translate: 0 0;
+.hero>div:nth-of-type(2) ul li:nth-of-type(1) {
+    order: 5;
+    animation: shuffle-card-1 24s linear infinite;
+}
+
+.hero>div:nth-of-type(2) ul li:nth-of-type(1)::before {
+    animation: shuffle-card-pseudo-1 24s linear infinite;
+    background: black;
+}
+
+.hero>div:nth-of-type(2) ul li:nth-of-type(2) {
     order: 4;
+    animation: shuffle-card-2 24s linear infinite;
 }
 
-.hero ul li:nth-of-type(2) {
-    translate: calc(var(--image-stack-offset) * 1) calc(var(--image-stack-offset) * 1);
+.hero>div:nth-of-type(2) ul li:nth-of-type(2)::before {
+    animation: shuffle-card-pseudo-2 24s linear infinite;
+    background: black;
+}
+
+.hero>div:nth-of-type(2) ul li:nth-of-type(3) {
     order: 3;
+    animation: shuffle-card-3 24s linear infinite;
 }
 
-.hero ul li:nth-of-type(2)::before {
-    background: rgba(0, 0, 0, 0.3);
+.hero>div:nth-of-type(2) ul li:nth-of-type(3)::before {
+    animation: shuffle-card-pseudo-3 24s linear infinite;
+    background: black;
 }
 
-.hero ul li:nth-of-type(3) {
-    translate: calc(var(--image-stack-offset) * 2) calc(var(--image-stack-offset) * 2);
+.hero>div:nth-of-type(2) ul li:nth-of-type(4) {
     order: 2;
+    animation: shuffle-card-4 24s linear infinite;
 }
 
-.hero ul li:nth-of-type(3)::before {
-    background: rgba(0, 0, 0, 0.5);
+.hero>div:nth-of-type(2) ul li:nth-of-type(4)::before {
+    animation: shuffle-card-pseudo-4 24s linear infinite;
+    background: black;
 }
 
-.hero ul li:nth-of-type(4) {
-    translate: calc(var(--image-stack-offset) * 3) calc(var(--image-stack-offset) * 3);
-    order: 1;
+.hero>div:nth-of-type(2) ul li:nth-of-type(5) {
+    order: 2;
+    animation: shuffle-card-5 24s linear infinite;
 }
 
-.hero ul li:nth-of-type(4)::before {
-    background: rgba(0, 0, 0, 0.8);
+.hero>div:nth-of-type(2) ul li:nth-of-type(5)::before {
+    animation: shuffle-card-pseudo-5 24s linear infinite;
+    background: black;
 }
 
-.hero ul li img {
+.hero>div:nth-of-type(2) ul li img {
     height: 100%;
     object-fit: cover;
 }
