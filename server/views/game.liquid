@@ -35,18 +35,13 @@
       <section>
         <h2>Match the corresponding image!</h2>
         <ul>
-          <li>
-            <img src="/client/images/pexels-suju-30890409.jpg" alt="">
-          </li>
-          <li>
-            <img src="/client/images/pexels-molnartamasphotography-29567753.jpg" alt="">
-          </li>
-          <li>
-            <img src="/client/images/pexels-caleb-falkenhagen-216813613-30845530.jpg" alt="">
-          </li>
-          <li>
-            <img src="/client/images/pexels-andreas-schnabl-1775843-28573531.jpg" alt="">
-          </li>
+          {% for image in images limit:4 %}
+            <li>
+              <button>
+                <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">
+              </button>
+            </li>
+          {% endfor %}
         </ul>
 
         <footer>
@@ -62,4 +57,4 @@
   </div>
 
 
-{% endblock %}}}}}
+{% endblock %}}}}}}}}}}}}}

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "Wolf staring in a field",
     "A wolf pack growling in the snow"
   ];
-  const sections = document.querySelectorAll('section');
+  const sections = document.querySelectorAll('.hero section');
   
   // Constants for timing - these should match your CSS animation steps
   const CARD_CYCLE_DURATION = 25000; // 25s to match your CSS animation

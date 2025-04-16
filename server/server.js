@@ -75,7 +75,6 @@ const fetchCollectionImages = async (collectionId, pages = 3) => {
   return allPhotos;
 };
 
-// Define all your keyword mappings at the top level
 const categoryKeywords = {
   // Animal subcategories
   'wolves': ['wolf', 'wolves', 'canine', 'canid', 'lupus'],
@@ -140,8 +139,6 @@ function findImagesByKeywords(images, keywordsMap) {
       }
     }
   });
-
-  console.log(`Found ${resultImages.length} images for categories: ${Object.keys(foundCategories).join(', ')}`);
   return resultImages;
 }
 
@@ -224,39 +221,6 @@ app.get('/game/:subcategory', async (req, res) => {
     category: subcategory,
     mainCategory: mainCategory,
     images: subcategoryImages,
-    previousPage: req.headers.referer || '/'
-  }));
-});
-
-// Category route - shows all images in a main category
-app.get('/game-category/:category', async (req, res) => {
-  const category = req.params.category.toLowerCase();
-  
-  // Use global image collection
-  const collectionId = '6vTF-IB0SOQ';
-  const allImages = await getGlobalImages(collectionId, 3);
-  
-  // Get subcategories for this main category
-  const subcategories = Object.keys(mainCategories).filter(
-    subcat => mainCategories[subcat] === category
-  );
-  
-  // Get all keywords for these subcategories
-  const categoryKeywordsMap = {};
-  subcategories.forEach(subcat => {
-    categoryKeywordsMap[subcat] = categoryKeywords[subcat];
-  });
-  
-  // Find images for all subcategories in this main category
-  const categoryImages = findImagesByKeywords(
-    allImages.filter(img => img.alt_description),
-    categoryKeywordsMap
-  );
-  
-  return res.send(renderTemplate('server/views/game.liquid', {
-    title: `${category.charAt(0).toUpperCase() + category.slice(1)} Game`,
-    category: category,
-    images: categoryImages,
     previousPage: req.headers.referer || '/'
   }));
 });

@@ -117,11 +117,20 @@
 
 .game section ul li {
     border-radius: 2cqw;
-    overflow: hidden;
+    width: 100%;
+    height: 16cqw;
+    border-radius: 2cqw;
+    overflow: clip;
 }
 
 .game section ul li:hover {
     outline: 2px solid var(--secondary-accent-color);
+}
+
+.game section ul li button {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .game section ul li img {
@@ -144,11 +153,11 @@
     font-family: neuehaas;
     font-weight: 600;
     font-size: 1.25cqw;
-    color: var(--primarty-bg-color);
+    color: var(--primary-bg-color);
 }
 
 .game section footer h3 span {
     text-align: center;
     font-size: 2.25cqw;
-    color: var(--primarty-bg-color);
+    color: var(--primary-bg-color);
 }
