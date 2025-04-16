@@ -109,7 +109,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5cqw;
+    gap: 2.5cqw;
     padding: 2cqw;
     outline: 2px solid var(--primary-accent-color);
     border-radius: 2cqw;
@@ -121,6 +121,10 @@
     height: 16cqw;
     border-radius: 2cqw;
     overflow: clip;
+}
+
+.game section ul li:has(button:focus-visible) {
+    outline: var(--secondary-accent-color) 2px solid;
 }
 
 .game section ul li:hover {
@@ -141,7 +145,7 @@
 /* FOOTER */
 
 .game section footer {
-    background-color: var(--white);
+    background-color: var(--secondary-accent-color);
     display: flex;
     justify-content: space-evenly;
     padding: 1cqw;

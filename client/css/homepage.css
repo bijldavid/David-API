@@ -291,7 +291,7 @@
     appearance: none;
 }
 
-.category fieldset div label input:focus {
+.category fieldset div label input:focus-visible {
     border-radius: 100vw;
 }
 
@@ -311,6 +311,10 @@
     height: 16cqw;
     border-radius: 2cqw;
     overflow: hidden;
+}
+
+.category ul li:has(a:focus-visible) {
+    outline: var(--secondary-accent-color) 2px solid;
 }
 
 .category ul li a {
@@ -357,10 +361,6 @@
 
 .category ul li a:hover::after {
     opacity: 1;
-}
-
-.category ul li a:focus {
-    border-radius: 2cqw;
 }
 
 .category ul li a p {
