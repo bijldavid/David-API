@@ -38,6 +38,10 @@
             <section id="section-4">
               <p class="typing"></p>
             </section>
+
+            <section id="section-5">
+              <p class="typing"></p>
+            </section>
           </div>
           <svg>
             <line x1="0" y1="1" x2="100%" y2="1"/>
@@ -113,7 +117,7 @@
       <ul class="animals-images">
         {% for image in animalImages %}
           <li>
-            <a href="/game/animals">
+            <a href="/game/{{ image.category }}">
               <p>{{ image.displayName | capitalize }}
               </p>
               <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">
@@ -125,7 +129,7 @@
       <ul class="food-images">
         {% for image in foodImages %}
           <li>
-            <a href="/game/food">
+            <a href="/game/{{ image.category }}">
               <p>{{ image.displayName | capitalize }}
               </p>
               <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">

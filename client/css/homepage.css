@@ -116,51 +116,51 @@
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(1) {
     order: 5;
-    animation: shuffle-card-1 24s linear infinite;
+    animation: shuffle-card-1 25s linear infinite;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(1)::before {
-    animation: shuffle-card-pseudo-1 24s linear infinite;
+    animation: shuffle-card-pseudo-1 25s linear infinite;
     background: black;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(2) {
     order: 4;
-    animation: shuffle-card-2 24s linear infinite;
+    animation: shuffle-card-2 25s linear infinite;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(2)::before {
-    animation: shuffle-card-pseudo-2 24s linear infinite;
+    animation: shuffle-card-pseudo-2 25s linear infinite;
     background: black;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(3) {
     order: 3;
-    animation: shuffle-card-3 24s linear infinite;
+    animation: shuffle-card-3 25s linear infinite;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(3)::before {
-    animation: shuffle-card-pseudo-3 24s linear infinite;
+    animation: shuffle-card-pseudo-3 25s linear infinite;
     background: black;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(4) {
     order: 2;
-    animation: shuffle-card-4 24s linear infinite;
+    animation: shuffle-card-4 25s linear infinite;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(4)::before {
-    animation: shuffle-card-pseudo-4 24s linear infinite;
+    animation: shuffle-card-pseudo-4 25s linear infinite;
     background: black;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(5) {
     order: 2;
-    animation: shuffle-card-5 24s linear infinite;
+    animation: shuffle-card-5 25s linear infinite;
 }
 
 .hero>div:nth-of-type(2) ul li:nth-of-type(5)::before {
-    animation: shuffle-card-pseudo-5 24s linear infinite;
+    animation: shuffle-card-pseudo-5 25s linear infinite;
     background: black;
 }
 
