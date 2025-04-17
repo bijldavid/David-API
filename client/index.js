@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "Wolves playing in a zoo",
     "Wolves biting each other",
     "2 wolves chilling in a forest",
-    "Wolf staring in a field",
+    "Wolf staring at his prey",
     "A wolf pack growling in the snow"
   ];
   const sections = document.querySelectorAll('.hero section');

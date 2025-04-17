@@ -17,7 +17,7 @@ const engine = new Liquid({
 });
 
 // Helper function to render templates
-const renderTemplate = (template, data) => {
+function renderTemplate(template, data) {
   const templateData = {
     NODE_ENV,
     ...data
@@ -27,32 +27,28 @@ const renderTemplate = (template, data) => {
 
 // Global image collection to avoid redundant API calls
 let globalImageCollection = null;
+const collectionId = '6vTF-IB0SOQ';
 
 /**
  * Get images from global cache or fetch if not available
- * @param {string} collectionId - ID of the Unsplash collection
  * @param {number} pages - Number of pages to fetch
  * @returns {Promise<Array>} - Photos array
  */
-async function getGlobalImages(collectionId, pages = 3) {
+async function getGlobalImages(pages = 3) {
   // Only fetch if we don't already have the images
   if (!globalImageCollection) {
-    console.log('Fetching images from Unsplash (first time)');
-    globalImageCollection = await fetchCollectionImages(collectionId, pages);
-  } else {
-    console.log('Reusing already fetched images');
+    globalImageCollection = await fetchCollectionImages(pages);
   }
-  
+
   return globalImageCollection;
 }
 
 /**
  * Fetch photos from a specific Unsplash collection
- * @param {string} collectionId - ID of the Unsplash collection
- * @param {number} perPage - Number of photos per page
+ * @param {number} pages - Number of photos per page
  * @returns {Promise<Array>} - Photos array
  */
-const fetchCollectionImages = async (collectionId, pages = 3) => {
+async function fetchCollectionImages(pages) {
   let allPhotos = [];
 
   for (let page = 1; page <= pages; page++) {
@@ -66,16 +62,14 @@ const fetchCollectionImages = async (collectionId, pages = 3) => {
 
     const pageData = await response.json();
 
-    // Only push if it's actually an array
-    if (Array.isArray(pageData)) {
-      allPhotos = [...allPhotos, ...pageData];
-    }
+    // allPhotos = [...allPhotos, ...pageData];
+    allPhotos.push(...pageData);
   }
 
   return allPhotos;
 };
 
-const categoryKeywords = {
+const subCategoryKeywords = {
   // Animal subcategories
   'wolves': ['wolf', 'wolves', 'canine', 'canid', 'lupus'],
   'lions': ['lion', 'lions', 'lioness', 'big cat', 'panthera leo', 'feline'],
@@ -83,7 +77,7 @@ const categoryKeywords = {
   'frogs': ['frog', 'frogs', 'toad', 'toads', 'amphibian', 'tadpole'],
   'fish': ['fish', 'fishes', 'trout', 'salmon', 'aquatic', 'underwater', 'marine'],
   'birds': ['bird', 'birds', 'avian', 'feathered', 'fowl', 'owl', 'eagle', 'hawk', 'parrot', 'duck'],
-  
+
   // Food subcategories
   'burgers': ['burger', 'beef', 'patty', 'fastfood', 'burgers'],
   'pizzas': ['italian', 'pizza', 'pizzas', 'margherita', 'pepperoni'],
@@ -101,7 +95,7 @@ const mainCategories = {
   'frogs': 'animals',
   'fish': 'animals',
   'birds': 'animals',
-  
+
   'burgers': 'food',
   'pizzas': 'food',
   'pastas': 'food',
@@ -125,15 +119,15 @@ function findImagesByKeywords(images, keywordsMap) {
 
     const description = image.alt_description.toLowerCase();
 
-    for (const [category, keywords] of Object.entries(keywordsMap)) {
-      if (foundCategories[category]) continue;
+    for (const [subcategory, keywords] of Object.entries(keywordsMap)) {
+      if (foundCategories[subcategory]) continue;
 
       if (keywords.some(keyword => description.includes(keyword))) {
-        foundCategories[category] = true;
+        foundCategories[subcategory] = true;
         resultImages.push({
           ...image,
-          category: category,
-          displayName: category.charAt(0).toUpperCase() + category.slice(1)
+          category: subcategory,
+          displayName: subcategory.charAt(0).toUpperCase() + subcategory.slice(1)
         });
         break;
       }
@@ -150,78 +144,67 @@ app.use(logger());
 app.use('/', sirv(NODE_ENV === 'development' ? 'client' : 'dist'));
 
 // Home route - shows categories
-app.get('/', async (req, res) => {
-  const collectionId = '6vTF-IB0SOQ';
+app.get('/', async (request, response) => {
   // Use global image collection
-  const allImages = await getGlobalImages(collectionId, 3);
-
-  console.log(`Using ${allImages.length} images from collection`);
+  const allImages = await getGlobalImages();
 
   // Extract animal and food categories from the same collection
   const animalKeywords = {
-    'wolves': categoryKeywords['wolves'],
-    'lions': categoryKeywords['lions'],
-    'bears': categoryKeywords['bears'],
-    'frogs': categoryKeywords['frogs'],
-    'fish': categoryKeywords['fish'],
-    'birds': categoryKeywords['birds']
+    'wolves': subCategoryKeywords['wolves'],
+    'lions': subCategoryKeywords['lions'],
+    'bears': subCategoryKeywords['bears'],
+    'frogs': subCategoryKeywords['frogs'],
+    'fish': subCategoryKeywords['fish'],
+    'birds': subCategoryKeywords['birds']
   };
 
   const foodKeywords = {
-    'burgers': categoryKeywords['burgers'],
-    'pizzas': categoryKeywords['pizzas'],
-    'pastas': categoryKeywords['pastas'],
-    'bread': categoryKeywords['bread'],
-    'meat': categoryKeywords['meat'],
-    'fries': categoryKeywords['fries']
+    'burgers': subCategoryKeywords['burgers'],
+    'pizzas': subCategoryKeywords['pizzas'],
+    'pastas': subCategoryKeywords['pastas'],
+    'bread': subCategoryKeywords['bread'],
+    'meat': subCategoryKeywords['meat'],
+    'fries': subCategoryKeywords['fries']
   };
 
-  const animalImages = findImagesByKeywords(
-    allImages.filter(img => img.alt_description), 
-    animalKeywords
-  );
+  const animalImages = findImagesByKeywords(allImages, animalKeywords);
+  const foodImages = findImagesByKeywords(allImages, foodKeywords);
 
-  const foodImages = findImagesByKeywords(
-    allImages.filter(img => img.alt_description),
-    foodKeywords
-  );
-
-  return res.send(renderTemplate('server/views/index.liquid', {
+  return response.send(renderTemplate('server/views/index.liquid', {
     title: 'Home',
     animalImages: animalImages,
     foodImages: foodImages
   }));
 });
 
+
+
+
 // Game route - shows specific subcategory
-app.get('/game/:subcategory', async (req, res) => {
-  const subcategory = req.params.subcategory.toLowerCase();
-  const mainCategory = mainCategories[subcategory] || 'unknown';
-  
+app.get('/game/:subcategory', async (request, response) => {
+  const subcategory = request.params.subcategory.toLowerCase();
+
   // Use global image collection
-  const collectionId = '6vTF-IB0SOQ';
-  const allImages = await getGlobalImages(collectionId, 3);
-  
+  const allImages = await getGlobalImages();
+
   // Get images for this specific subcategory
   const subcategoryImages = allImages.filter(image => {
     if (!image.alt_description) return false;
-    
+
     const description = image.alt_description.toLowerCase();
-    const keywords = categoryKeywords[subcategory] || [];
-    
+    const keywords = subCategoryKeywords[subcategory] || [];
+
     return keywords.some(keyword => description.includes(keyword));
   }).map(image => ({
     ...image,
     category: subcategory,
-    displayName: subcategory.charAt(0).toUpperCase() + subcategory.slice(1)
   }));
-  
-  return res.send(renderTemplate('server/views/game.liquid', {
+
+  return response.send(renderTemplate('server/views/game.liquid', {
     title: `${subcategory.charAt(0).toUpperCase() + subcategory.slice(1)} Game`,
     category: subcategory,
-    mainCategory: mainCategory,
     images: subcategoryImages,
-    previousPage: req.headers.referer || '/'
+    previousPage: request.headers.referer || '/'
   }));
 });
 
