@@ -11,7 +11,7 @@
 
 {% block content %}
 
-  <div class="game-container">
+  <div class="game-container" id="game-container" data-images="{{ images | json | escape }}" data-previous-page="{{ previousPage }}">
     <div class="game">
       <div>
         <a href="{{ previousPage }}">Go back</a>
@@ -24,7 +24,7 @@
           </svg>
           <div class="alt-container">
             <p>Alt=</p>
-            <p>”A wolf pack growling in the snow”</p>
+            <p id="alt-display"></p>
           </div>
           <svg>
             <line x1="0" y1="1" x2="100%" y2="1"/>
@@ -34,15 +34,8 @@
       </div>
       <section>
         <h2>Match the corresponding image!</h2>
-        <ul>
-          {% for image in images limit:4 %}
-            <li>
-              <button>
-                <img src="{{ image.urls.regular }}" alt="{{ image.alt_description }}">
-              </button>
-            </li>
-          {% endfor %}
-        </ul>
+
+        <ul id="image-grid"></ul>
 
         <footer>
           <h3>
@@ -53,7 +46,13 @@
             <span class="break">2</span>Wrong</h3>
         </footer>
       </section>
+
+      <dialog id="result-dialog">
+        <div id="dialog-content"></div>
+      </dialog>
+
+
     </div>
   </div>
 
-{% endblock %}}}
+{% endblock %}}

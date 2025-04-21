@@ -83,25 +83,8 @@ const subCategoryKeywords = {
   'pizzas': ['italian', 'pizza', 'pizzas', 'margherita', 'pepperoni'],
   'pastas': ['pasta', 'pastas', 'bolognese', 'carbonara', 'salad'],
   'bread': ['bread', 'slices', 'loaf', 'baked', 'baguette', 'dough'],
-  'meat': ['meat', 'raw', 'steak', 'grilled', 'sliced', 'cut'],
+  'meat': ['meat', 'raw', 'steak', 'grilled', 'cut'],
   'fries': ['fries', 'potato', 'french']
-};
-
-// Category mappings to determine main category from subcategory
-const mainCategories = {
-  'wolves': 'animals',
-  'lions': 'animals',
-  'bears': 'animals',
-  'frogs': 'animals',
-  'fish': 'animals',
-  'birds': 'animals',
-
-  'burgers': 'food',
-  'pizzas': 'food',
-  'pastas': 'food',
-  'bread': 'food',
-  'meat': 'food',
-  'fries': 'food'
 };
 
 /**

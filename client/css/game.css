@@ -127,14 +127,30 @@
     outline: var(--secondary-accent-color) 2px solid;
 }
 
-.game section ul li:hover {
-    outline: 2px solid var(--secondary-accent-color);
-}
-
 .game section ul li button {
+    position: relative;
     width: 100%;
     height: 100%;
     border: none;
+    background-color: var(--primary-bg-color);
+}
+
+.game section ul li button::after {
+    z-index: 2;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: solid 2px var(--secondary-accent-color);
+    border-radius: 2cqw;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+.game section ul li button:hover::after {
+    opacity: 1;
 }
 
 .game section ul li img {
@@ -152,7 +168,6 @@
     border-radius: 100vw;
 }
 
-
 .game section footer h3 {
     font-family: neuehaas;
     font-weight: 600;
@@ -164,4 +179,62 @@
     text-align: center;
     font-size: 2.25cqw;
     color: var(--primary-bg-color);
+}
+
+
+
+
+dialog {
+    max-width: 66vw;
+    border: none;
+    margin: auto;
+    border-radius: 40px;
+}
+
+dialog .dialog-inner {
+    position: relative;
+}
+
+dialog .dialog-inner::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.85) 85%);
+    top: 0;
+    right: 0;
+}
+
+dialog .dialog-inner>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+dialog .dialog-inner>div div {
+    display: flex;
+    gap: 1em;
+}
+
+dialog .dialog-inner .photo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    position: absolute;
+    right: 2em;
+    top: 2em;
+}
+
+dialog .dialog-inner img {
+    width: 100%;
+    display: block;
 }
