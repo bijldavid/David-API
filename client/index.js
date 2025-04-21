@@ -193,19 +193,18 @@ document.addEventListener('DOMContentLoaded', () => {
         <small>You guessed:</small>
         <h2>${isCorrect ? 'Correct' : 'Incorrect'}</h2>
         <div>
-          <button id="continue-button" class="close-modal">Continue Playing</button>
           <button id="exit-button" class="close-modal">Exit game</button>
+          <button id="continue-button" class="close-modal">Continue Playing</button>
         </div>
       </div>
       <ul class="photo-info">
-        <li><strong>Description:</strong> ${clickedImage.alt_description || 'No description available'}</li>
-        <li><strong>Photographer:</strong> ${clickedImage.user.name}</li>
-        <li><strong>Location:</strong> ${clickedImage.location?.name || 'Unknown'}</li>
-        <li><strong>Likes:</strong> ${clickedImage.likes}</li>
-        <li><strong>Created:</strong> ${new Date(clickedImage.created_at).toLocaleDateString()}</li>
-        <li><strong>ID:</strong> ${clickedImage.id}</li>
+        <li><small>Photographer: ${clickedImage.user.name}</small></li>
+        <li><small>Location: ${clickedImage.location?.name || 'Unknown'}</small></li>
+        <li><small>Likes: ${clickedImage.likes}</small></li>
+        <li><small>Created: ${new Date(clickedImage.created_at).toLocaleDateString()}</small></li>
+        <li><small>ID: ${clickedImage.id}</small></li>
       </ul>
-      <img src="${clickedImage.urls.regular}" alt="${clickedImage.alt_description || 'Image'}">
+      <img src="${clickedImage.urls.full}" alt="${clickedImage.alt_description || 'Image'}">
     </div>
   `;
 
