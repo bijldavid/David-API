@@ -195,3 +195,19 @@ app.get('/game/:subcategory', async (request, response) => {
 app.listen(PORT, () => {
   console.log(`Server available on http://localhost:${PORT}`);
 });
+
+
+// STAP 1: server begint met runnen (npm run dev)
+// STAP 2: gebruiker gaat naar de homepage
+// STAP 3: tinyhttp called de functie de home route
+// STAP 4: in die functie halen we alle fotos op van unsplash API (homepage laat ook fotos zien)
+// STAP 5: gebruiker kiest een categorie
+// STAP 6: browser van gebruiker redirect de gebruiker naar /game/category
+// STAP 7: tinyhttp called de game route
+// STAP 8: deze route heeft alle fotos al
+// STAP 9: we filteren alle fotos op deze category
+// STAP 10: we geven alle fotos aan game.liquid
+// STAP 11: liquid voegt alle fotos in een JSON in een attribuut van #game-container (dit wordt verstuurd naar de client)
+
+// STAP 12: nu komen we bij de index.js, hier begint de game logic
+// STAP 13: 

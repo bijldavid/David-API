@@ -121,27 +121,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
 // game.js - Client-side game logic
 document.addEventListener('DOMContentLoaded', () => {
   // Get all images from the data attribute we'll add to the container
   const allImages = JSON.parse(document.getElementById('game-container').dataset.images);
+  console.log(allImages);
   let unusedImages = [...allImages]; // Clone the array to track unused images
   let currentImages = []; // Will store the current 4 images
   let correctImageIndex = -1; // Index of the correct image in currentImages
 
+  // Score tracking variables
+  let streak = Number(sessionStorage.getItem('streak')) || 0;
+  let correctAnswers = Number(sessionStorage.getItem('correctAnswers')) || 0;
+  let wrongAnswers = Number(sessionStorage.getItem('wrongAnswers')) || 0;
+
+
+  // DOM elements
   const altDisplayElement = document.getElementById('alt-display');
   const imageGrid = document.getElementById('image-grid');
   const resultDialog = document.getElementById('result-dialog');
   const dialogContent = document.getElementById('dialog-content');
-  const continueButton = document.getElementById('continue-button');
-  const exitButton = document.getElementById('exit-button');
+  const categoryTitle = document.getElementById('category-title')
+
+  // Score display elements
+  const streakElement = document.querySelector('footer h3:nth-child(1) .break');
+  const correctElement = document.querySelector('footer h3:nth-child(2) .break');
+  const wrongElement = document.querySelector('footer h3:nth-child(3) .break');
 
   // Start the game
   startNewRound();
+  updateScoreDisplay(); // Initialize score display
+
+  // Function to update score display
+  function updateScoreDisplay() {
+    streakElement.textContent = streak;
+    correctElement.textContent = correctAnswers;
+    wrongElement.textContent = wrongAnswers;
+  }
 
   // Function to start a new round
   function startNewRound() {
-    // If we have less than 4 unused images, reset the unused images pool
     if (unusedImages.length < 4) {
       unusedImages = [...allImages];
     }
@@ -160,7 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const correctImage = currentImages[correctImageIndex];
 
     // Display the alt text to match
-    altDisplayElement.textContent = correctImage.alt_description || "No description available";
+    // Display the alt text to match with quotation marks
+
+    
+
+    categoryTitle.textContent = correctImage.category.charAt(0).toUpperCase() + correctImage.category.slice(1);
+    altDisplayElement.textContent = `"${correctImage.alt_description}"`;
 
     // Clear and populate the image grid
     imageGrid.innerHTML = '';
@@ -181,10 +207,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Function to handle image clicks
-  // Function to handle image clicks
   function handleImageClick(clickedIndex) {
     const clickedImage = currentImages[clickedIndex];
     const isCorrect = clickedIndex === correctImageIndex;
+
+    // Update scores
+    if (isCorrect) {
+      streak++;
+      correctAnswers++;
+    } else {
+      streak = 0; // Reset streak on wrong answer
+      wrongAnswers++;
+    }
+
+    updateScoreDisplay();
+
+    // Save updated score to sessionStorage
+    sessionStorage.setItem('streak', streak);
+    sessionStorage.setItem('correctAnswers', correctAnswers);
+    sessionStorage.setItem('wrongAnswers', wrongAnswers);
+
 
     // Prepare dialog content
     let content = `
@@ -211,13 +253,21 @@ document.addEventListener('DOMContentLoaded', () => {
     dialogContent.innerHTML = content;
     resultDialog.showModal();
 
-    // Need to reattach event listeners since we replaced the HTML
+
+    resultDialog.addEventListener('close', (event) => {
+      if (!event.currentTarget.returnValue) {
+        startNewRound();
+      }
+    });
+
     document.getElementById('continue-button').addEventListener('click', () => {
+      resultDialog.returnValue = 'continue';
       resultDialog.close();
       startNewRound();
     });
 
     document.getElementById('exit-button').addEventListener('click', () => {
+      resultDialog.returnValue = 'exit';
       resultDialog.close();
       window.location.href = document.getElementById('game-container').dataset.previousPage;
     });

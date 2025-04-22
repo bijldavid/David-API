@@ -135,6 +135,10 @@
     background-color: var(--primary-bg-color);
 }
 
+.game section ul li button:focus {
+    outline: none;
+}
+
 .game section ul li button::after {
     z-index: 2;
     content: '';
