@@ -4,6 +4,7 @@ import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 
+
 // Environment variables
 const {
   UNSPLASH_ACCESS_KEY,
