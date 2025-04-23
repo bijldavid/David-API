@@ -212,3 +212,5 @@ app.listen(PORT, () => {
 
 // STAP 12: nu komen we bij de index.js, hier begint de game logic
 // STAP 13: 
+
+console.log(`Serving static files from: ${NODE_ENV === 'development' ? 'client' : 'dist'}`);

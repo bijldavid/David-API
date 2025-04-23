@@ -11,16 +11,17 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'client/index.js'),
-        style: path.resolve(__dirname, 'client/index.css')  // this triggers the CSS build
+        style: path.resolve(__dirname, 'client/index.css')
       },
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
-        assetFileNames: ({ name }) => {
-          if (name && name.endsWith('.css')) return 'index.css'; // forces output to index.css
-          return '[name].[ext]';
-        }
+        assetFileNames: '[name].[ext]'
       }
     }
+  },
+  // Make sure CSS preprocessing is enabled
+  css: {
+    postcss: {},
   }
 });
