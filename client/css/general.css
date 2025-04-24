@@ -1,3 +1,7 @@
+@view-transition {
+    navigation: auto;
+  }
+
 :root {
     --primary-bg-color: #1F1F1C;
     --secondary-bg-color: #2C2C29;

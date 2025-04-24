@@ -5,19 +5,19 @@ import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 
 
-// Environment variables
+// .env variables
 const {
   UNSPLASH_ACCESS_KEY,
   NODE_ENV = 'production',
   PORT = 3000
 } = process.env;
 
-// Initialize Liquid template engine
+// Liquid template engine
 const engine = new Liquid({
   extname: '.liquid',
 });
 
-// Helper function to render templates
+// Helper functie om steeds de NODE ENV toe te voegen
 function renderTemplate(template, data) {
   const templateData = {
     NODE_ENV,
@@ -26,17 +26,16 @@ function renderTemplate(template, data) {
   return engine.renderFileSync(template, templateData);
 };
 
-// Global image collection to avoid redundant API calls
+// Variable voor alle images
 let globalImageCollection = null;
 const collectionId = '6vTF-IB0SOQ';
 
 /**
- * Get images from global cache or fetch if not available
+ * Functie roept fecthcollectionimages aan tenzij zolang hij null is
  * @param {number} pages - Number of pages to fetch
  * @returns {Promise<Array>} - Photos array
  */
 async function getGlobalImages(pages = 3) {
-  // Only fetch if we don't already have the images
   if (!globalImageCollection) {
     globalImageCollection = await fetchCollectionImages(pages);
   }
@@ -45,12 +44,12 @@ async function getGlobalImages(pages = 3) {
 }
 
 /**
- * Fetch photos from a specific Unsplash collection
+ * Functie om plaatjes uit de Unsplash API op te halen
  * @param {number} pages - Number of photos per page
  * @returns {Promise<Array>} - Photos array
  */
 async function fetchCollectionImages(pages) {
-  let allPhotos = [];
+  let allImages = [];
 
   for (let page = 1; page <= pages; page++) {
     const url = `https://api.unsplash.com/collections/${collectionId}/photos?per_page=30&page=${page}`;
@@ -63,11 +62,12 @@ async function fetchCollectionImages(pages) {
 
     const pageData = await response.json();
 
-    // allPhotos = [...allPhotos, ...pageData];
-    allPhotos.push(...pageData);
+    // allImages = [...allImages, ...pageData];
+    // Alle nieuwe pageData wordt achteraan de allPhots array toegevoegd
+    allImages.push(...pageData);
   }
 
-  return allPhotos;
+  return allImages;
 };
 
 const subCategoryKeywords = {
@@ -103,9 +103,13 @@ function findImagesByKeywords(images, keywordsMap) {
 
     const description = image.alt_description.toLowerCase();
 
+    // In const subcategory worden alle keys geplaatst en in keywords alle values
     for (const [subcategory, keywords] of Object.entries(keywordsMap)) {
+      // Als een subcategory al in de foundCategory array zit, ga dan door naar de volgende
       if (foundCategories[subcategory]) continue;
 
+      // Als een van de keywords in de alt text description zit, dan runt de if statement
+      // Some = als er minstents 1 overeenkomt
       if (keywords.some(keyword => description.includes(keyword))) {
         foundCategories[subcategory] = true;
         resultImages.push({
@@ -113,6 +117,7 @@ function findImagesByKeywords(images, keywordsMap) {
           category: subcategory,
           displayName: subcategory.charAt(0).toUpperCase() + subcategory.slice(1)
         });
+        // Stop wanneer we de juiste category hebben gevonden
         break;
       }
     }
@@ -127,9 +132,9 @@ const app = new App();
 app.use(logger());
 app.use('/', sirv(NODE_ENV === 'development' ? 'client' : 'dist'));
 
-// Home route - shows categories
+// Home route
 app.get('/', async (request, response) => {
-  // Use global image collection
+
   const allImages = await getGlobalImages();
 
   // Extract animal and food categories from the same collection
@@ -164,22 +169,26 @@ app.get('/', async (request, response) => {
 
 
 
-// Game route - shows specific subcategory
+// Game route
 app.get('/game/:subcategory', async (request, response) => {
+
   const subcategory = request.params.subcategory.toLowerCase();
 
-  // Use global image collection
   const allImages = await getGlobalImages();
 
-  // Get images for this specific subcategory
-  const subcategoryImages = allImages.filter(image => {
+  // Voor alle fotos die ik heb, return true / false 
+  const filteredImages = allImages.filter(image => {
     if (!image.alt_description) return false;
 
     const description = image.alt_description.toLowerCase();
+    // De const keywords bevat de array met alle keywords van de huidige subcategory
     const keywords = subCategoryKeywords[subcategory] || [];
 
     return keywords.some(keyword => description.includes(keyword));
-  }).map(image => ({
+  })
+
+  // Op alle images die zijn overgebleven, voeg category toe aan elke foto
+  const subcategoryImages = filteredImages.map(image => ({
     ...image,
     category: subcategory,
   }));
@@ -211,6 +220,3 @@ app.listen(PORT, () => {
 // STAP 11: liquid voegt alle fotos in een JSON in een attribuut van #game-container (dit wordt verstuurd naar de client)
 
 // STAP 12: nu komen we bij de index.js, hier begint de game logic
-// STAP 13: 
-
-console.log(`Serving static files from: ${NODE_ENV === 'development' ? 'client' : 'dist'}`);

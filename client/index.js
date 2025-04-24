@@ -112,12 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   // Get all images from the data attribute we'll add to the container
   const allImages = JSON.parse(document.getElementById('game-container').dataset.images);
-  console.log(allImages);
-  let unusedImages = [...allImages]; // Clone the array to track unused images
-  let currentImages = []; // Will store the current 4 images
-  let correctImageIndex = -1; // Index of the correct image in currentImages
+  let unusedImages = [...allImages];
+  let currentImages = [];
+  let correctImageIndex = null;
 
-  // Score tracking variables
+  // Score bijhouden variable
   let streak = Number(sessionStorage.getItem('streak')) || 0;
   let correctAnswers = Number(sessionStorage.getItem('correctAnswers')) || 0;
   let wrongAnswers = Number(sessionStorage.getItem('wrongAnswers')) || 0;
@@ -130,50 +129,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const dialogContent = document.getElementById('dialog-content');
   const categoryTitle = document.getElementById('category-title')
 
-  // Score display elements
+  // Score elements
   const streakElement = document.querySelector('footer h3:nth-child(1) .break');
   const correctElement = document.querySelector('footer h3:nth-child(2) .break');
   const wrongElement = document.querySelector('footer h3:nth-child(3) .break');
 
-  // Start the game
+  // Begin de game
   startNewRound();
-  updateScoreDisplay(); // Initialize score display
+  updateScoreDisplay();
 
-  // Function to update score display
   function updateScoreDisplay() {
     streakElement.textContent = streak;
     correctElement.textContent = correctAnswers;
     wrongElement.textContent = wrongAnswers;
   }
 
-  // Function to start a new round
+
   function startNewRound() {
+    // Zodra er minder dan 4 images zijn, reset de image pool
     if (unusedImages.length < 4) {
       unusedImages = [...allImages];
     }
 
-    // Randomly select 4 images from unused images
+    // ik kies random 1 image uit unusedimages en die zet ik in currentimages. Die haal ik uit unusedimages en dat doe ik 4x
     currentImages = [];
     for (let i = 0; i < 4; i++) {
       const randomIndex = Math.floor(Math.random() * unusedImages.length);
       currentImages.push(unusedImages[randomIndex]);
-      // Remove the selected image from unusedImages
       unusedImages.splice(randomIndex, 1);
     }
 
-    // Randomly select one of the 4 images as the correct one
+    // Kies 1 van de 4 currentImage
     correctImageIndex = Math.floor(Math.random() * 4);
     const correctImage = currentImages[correctImageIndex];
 
-    // Display the alt text to match
-    // Display the alt text to match with quotation marks
-
-    
 
     categoryTitle.textContent = correctImage.category.charAt(0).toUpperCase() + correctImage.category.slice(1);
     altDisplayElement.textContent = `"${correctImage.alt_description}"`;
 
-    // Clear and populate the image grid
+    // Vullen we de image grid
     imageGrid.innerHTML = '';
     currentImages.forEach((image, index) => {
       const listItem = document.createElement('li');
@@ -184,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = "Game image";
 
       button.appendChild(img);
+      // index geeft mee welke image geklikt is
       button.addEventListener('click', () => handleImageClick(index));
 
       listItem.appendChild(button);
@@ -191,29 +186,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Function to handle image clicks
+  // Checken of de geklikte waarde klopt met de random gekoze waarde
   function handleImageClick(clickedIndex) {
     const clickedImage = currentImages[clickedIndex];
     const isCorrect = clickedIndex === correctImageIndex;
 
-    // Update scores
+    // update de score van de gebruiker
     if (isCorrect) {
       streak++;
       correctAnswers++;
     } else {
-      streak = 0; // Reset streak on wrong answer
+      streak = 0;
       wrongAnswers++;
     }
 
     updateScoreDisplay();
 
-    // Save updated score to sessionStorage
+    // Opslaan in de session storage
     sessionStorage.setItem('streak', streak);
     sessionStorage.setItem('correctAnswers', correctAnswers);
     sessionStorage.setItem('wrongAnswers', wrongAnswers);
 
 
-    // Prepare dialog content
+    // Dynamische dialog met data over het geklikte plaatje
     let content = `
     <div class="dialog-inner">
       <div>
@@ -239,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resultDialog.showModal();
 
 
+    // Als er geen returnValue wordt meegegeven dan triggered deze event
     resultDialog.addEventListener('close', (event) => {
       if (!event.currentTarget.returnValue) {
         startNewRound();
@@ -258,3 +254,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+// view transition
+document.addEventListener('navigate', () => {
+  if (!document.startViewTransition) {
+      return
+  } else {
+      document.startViewTransition(() => {
+          console.log('View transition started');
+      })
+  }
+})
